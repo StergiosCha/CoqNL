@@ -74,3 +74,10 @@ Parameter human walk: e->Prop.
   Theorem en: Entity-> exists x, human x.
     intro.      decompose record X. exists x0. assumption. Qed.
   Theorem WALK: walk (John.(x))-> exists x:e, walk x. intro. decompose record John. exists John.(x). assumption. Qed. 
+  
+Definition bool_in_nat (b:bool) := if b then 0 else 1.
+Check bool_in_nat.
+Coercion bool_in_nat : bool >-> nat.
+Check (0 = true).
+Set Printing Coercions.
+Check (0 = true).
