@@ -15,9 +15,12 @@ Check nbdays.
 Compute nbdays June.
 Compute nbdays October.
 
-
-
-(**Function that returns true in case a month is a winter month, false otherwise**)
+Require Import Omega.
+Require Import Arith. 
+Theorem monthcase: forall m: month, le 28 (nbdays m). 
+  intro. case ( m). simpl.  omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega. simpl. omega.  simpl. omega. 
+Qed. (*we could use some autoamation here**)
+                                                                        (**Function that returns true in case a month is a winter month, false otherwise**)
 Definition is_winter_month (m:month) :=
   match m with
 |December => True
@@ -73,11 +76,54 @@ Parameter human walk: e->Prop.
   Check walk (John.(x)).
   Theorem en: Entity-> exists x, human x.
     intro.      decompose record X. exists x0. assumption. Qed.
-  Theorem WALK: walk (John.(x))-> exists x:e, walk x. intro. decompose record John. exists John.(x). assumption. Qed. 
-  
+  Theorem WALK: walk (John.(x))-> exists x:e, walk x. intro. decompose record John. exists John.(x). assumption. Qed.
+
+
+  Section SUB.
+ Definition CN:=Set.
+ Parameters Woman  Man Human Animal Object: CN. (**CNs as types**)
+ Axiom wh: Woman  ->Human. Coercion wh: Woman >->Human.
+ Axiom mh: Man ->Human. Coercion mh: Man >->Human.
+  Axiom ha: Human -> Animal. Coercion ha: Human>->Animal.
+  Axiom ao: Animal -> Object. Coercion ao: Animal >-> Object.
+
+  Parameter drive: Human -> Prop.
+  Parameter George  : Man.
+  Parameter Mary: Woman. 
+  Check drive Mary.  (**work because of the subtyping**)
+  Check and(drive George)(drive Mary). 
+  (** some reasoning **)
+  Theorem MARY: drive Mary -> exists x: Woman, drive x. 
+  cbv.   intro. exists Mary. assumption. Qed. 
+
+Theorem MARY1:  drive Mary -> exists x: Human, drive x.
+  cbv.   intro. exists Mary. assumption. Qed.  (**subtyping**)
+
+(**Monotonicity on the first argument for free with subtyping**)
+Theorem MONIN: exists x: Man, drive x -> exists x: Human, drive x.
+exists George.  intro. exists George. assumption. Qed. 
+Theorem MONDEC: not (exists x: Human, drive x) -> not(exists x: Man, drive x).
+cbv.   intros. apply H.   elim H0. intros. exists x0. assumption. Qed. (**bool in nat**)
 Definition bool_in_nat (b:bool) := if b then 0 else 1.
 Check bool_in_nat.
 Coercion bool_in_nat : bool >-> nat.
 Check (0 = true).
 Set Printing Coercions.
 Check (0 = true).
+
+
+(**Co-induction**)
+Set Implicit Arguments. 
+CoInductive LList (A:Set) : Set :=
+LNil : LList A
+| LCons : A -> LList A -> LList A.
+Implicit Arguments LNil [A].
+Print LList.
+Require Import Streams. 
+Check Stream. Print Stream.
+
+Check (LCons 1 (LCons 2 (LCons 3 LNil))).
+Eval compute  in (LCons 1 (LCons 2 (LCons 3 LNil))).
+(**Eval compute  in (Cons 1 (Cons 2 (Cons 3))).**) (**there is no Nil to provide the Stream nat argument**)
+
+                 
