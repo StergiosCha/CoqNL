@@ -44,8 +44,7 @@ Definition MAN:= mkCN man IC_Man.
  
 
 (**A proof that if three men walk, three humans walk**)
-Theorem MANWALK: (three MAN) walk-> (three HUMAN) walk. cbv. intros. destruct H.
-                                                        destruct H. destruct H0. destruct H0. destruct H1. destruct H1. destruct H2. destruct H3. exists x. split. intuition. exists x0. split. intuition. exists x1. split. intuition. intuition. Qed.
+Theorem MANWALK: (three MAN) walk-> (three HUMAN) walk. cbv. intros. destruct H. destruct H. destruct H0. destruct H0. destruct H1. destruct H1. destruct H2. destruct H3. exists x. split. intuition. exists x0. split. intuition. exists x1. split. intuition. intuition. Qed.
 
 (** Defining the dot for PhyInfo and type book**)
 Parameter Phy Info: DomCN.
@@ -87,21 +86,20 @@ Theorem pickedupMasteredPHY:(three Book2) (AND(book)(picked_up john)(mastered jo
 
 Section BOOK.
 Variable BOOK1BOOK2: forall x:book, forall y:book, IC_Book1  x y-> IC_Book2 x y.
- Theorem pick1edupMasteredPHY:(three Book2) (AND(book)(picked_up john)(mastered john))-> (three PHY)(picked_up  john).
-   cbv. intros. destruct H. destruct H. destruct H. destruct H0. destruct H0. destruct H0. destruct H2. destruct H2. destruct H2. destruct H4. exists x. split. intuition. intuition.  exists x0. intuition. intuition. exists x1. split. intuition.      split. destruct IC_Book2 in BOOK1BOOK2. destruct IC_Book1 in BOOK1BOOK2. destruct _eq3. destruct a. destruct _eq4. destruct a.      destruct IC_Info in H4. destruct IC_Phy. destruct IC_Info in H7. destruct IC_Info in H8. destruct _eq5. destruct _eq4. destruct _eq6. destruct H9. destruct _eq3. destruct H13. destruct H11. unfold transitive in H18. unfold symmetric in H11. unfold reflexive in H10. unfold transitive in H17. unfold symmetric in H13. unfold reflexive in H12. unfold transitive in H14. unfold symmetric in H9. unfold reflexive in H6. destruct H16. unfold transitive in H19. unfold symmetric in H16. unfold reflexive in H15. firstorder.  Abort all. 
+Theorem pick1edupMasteredPHY:(three Book2) (AND(book)(picked_up john)(mastered john))-> (three PHY)(picked_up  john).
+cbv. intros. destruct H. destruct H. destruct H. destruct H0. destruct H0. destruct H0. destruct H2. destruct H2. destruct H2. destruct H4. exists x. split. intuition. intuition.  exists x0. intuition. intuition. exists x1. split. intuition.      split. destruct IC_Book2 in BOOK1BOOK2. destruct IC_Book1 in BOOK1BOOK2. destruct _eq3. destruct a. destruct _eq4. destruct a.      destruct IC_Info in H4. destruct IC_Phy. destruct IC_Info in H7. destruct IC_Info in H8. destruct _eq5. destruct _eq4. destruct _eq6. destruct H9. destruct _eq3. destruct H13. destruct H11. unfold transitive in H18. unfold symmetric in H11. unfold reflexive in H10. unfold transitive in H17. unfold symmetric in H13. unfold reflexive in H12. unfold transitive in H14. unfold symmetric in H9. unfold reflexive in H6. destruct H16. unfold transitive in H19. unfold symmetric in H16. unfold reflexive in H15. firstorder.  Abort all. 
 
- (** Definition of three for subtypes  **)
- Definition Three_v:= fun (A:CN)(D:CN)=>fun c: A.(B)->D.(B)=>fun P: D.(B)->Prop=>exists x y z:A.(B), not((D.(B2))(c(x))(c(y)))/\not((D.(B2))(c(y))(c(z))) /\not((D.(B2))(c(x))(c(z)))/\P (c(x))/\ P(c(y))/\P(c(z)).
-
- 
+            (** Definition of three for subtypes  **)
+Definition Three_v:= fun (A:CN)(D:CN)=>fun c: A.(B)->D.(B)=>fun P: D.(B)->Prop=>exists x y z:A.(B), not((D.(B2))(c(x))(c(y)))/\not((D.(B2))(c(y))(c(z))) /\not((D.(B2))(c(x))(c(z)))/\P (c(x))/\ P(c(y))/\P(c(z)).
 
  
- Definition Three_dot2:=fun c: Book1.(B)->PHYINFO.(B)=>fun P:PHYINFO.(B)->Prop=>exists x y z: Book1.(B), not((PHY.(B2))(c(x))(c(y)))/\not((PHY.(B2))(c(y))(c(z))) /\not((PHY.(B2))(c(x))(c(z)))/\not((INFO.(B2))(c(x))(c(y)))/\not((INFO.(B2))(c(y))(c(z))) /\not((INFO.(B2))(c(x))(c(z)))/\P (c(x))/\ P(c(y))/\P(c(z)). (**arbitrary A, WHEN SUBTYPING WORKS C SHOULD BE REDUNDANT, CHECK IT**)
+
+ 
+Definition Three_dot2:=fun c: Book1.(B)->PHYINFO.(B)=>fun P:PHYINFO.(B)->Prop=>exists x y z: Book1.(B), not((PHY.(B2))(c(x))(c(y)))/\not((PHY.(B2))(c(y))(c(z))) /\not((PHY.(B2))(c(x))(c(z)))/\not((INFO.(B2))(c(x))(c(y)))/\not((INFO.(B2))(c(y))(c(z))) /\not((INFO.(B2))(c(x))(c(z)))/\P (c(x))/\ P(c(y))/\P(c(z)). (**arbitrary A, WHEN SUBTYPING WORKS C SHOULD BE REDUNDANT, CHECK IT**)
  
 Definition and:= fun A:DomCN=>  fun P: A->Prop=>fun Q: A->Prop=>fun x: A=>  P(x)/\Q(x).
 Axiom c1: Book1.(B)->PHYINFO.(B). Axiom c2: Book2.(B)->PHYINFO.(B).
- (**John picked up and mastered three books->John mastered three informational objects**)
-Theorem pickedmastered3m: (Three_dot2 c1)(and PHYINFO(picked_up john )(mastered john))-> exists x y z: Book1.(B),mastered (john)(c1 x)/\mastered (john)(c1 y)/\mastered (john)(c1 z)/\ not((INFO.(B2))(c1(x))(c1(y)))/\not((INFO.(B2))(c1(y))(c1(z)))/\not((INFO.(B2))(c1(x))(c1(z))). cbv. firstorder. Qed.
+ (**John picked up and mastered three books->John mastered three informational objects**)Theorem pickedmastered3m: (Three_dot2 c1)(and PHYINFO(picked_up john )(mastered john))-> exists x y z: Book1.(B),mastered (john)(c1 x)/\mastered (john)(c1 y)/\mastered (john)(c1 z)/\ not((INFO.(B2))(c1(x))(c1(y)))/\not((INFO.(B2))(c1(y))(c1(z)))/\not((INFO.(B2))(c1(x))(c1(z))). cbv. firstorder. Qed.
 
 (**John picked up and mastered three books->John picked_up three physical objects**)                                                                                           
 Theorem pickedmastered3p: (Three_dot2 c1)(and PHYINFO(picked_up john )(mastered john))-> exists x y z: Book1.(B),picked_up (john)(c1 x)/\picked_up (john)(c1 y)/\picked_up (john)(c1 z)/\ not((PHY.(B2))(c1(x))(c1(y)))/\not((PHY.(B2))(c1(y))(c1(z)))/\not((PHY.(B2))(c1(x))(c1(z))). cbv. firstorder. Qed.
@@ -111,10 +109,10 @@ Theorem pickedmastered3pm: (Three_dot2 c1)(and PHYINFO(picked_up john )(mastered
 cbv. firstorder. Qed.
 
 (**Collecting the previous examples plus new ones**)
- Theorem MANWALKSOME: (some MAN) walk-> (some  HUMAN) walk. cbv. intros.                                                       firstorder. Qed.
- Theorem BOOKPICKED:( (some Book1) ( picked_up john))-> (some PHY)( picked_up john).  
+Theorem MANWALKSOME: (some MAN) walk-> (some  HUMAN) walk. cbv. intros.                                                       firstorder. Qed.
+Theorem BOOKPICKED:( (some Book1) ( picked_up john))-> (some PHY)( picked_up john).  
    cbv.  intro. firstorder. Qed. (**John picked up a book->John picked up a physical object**)
-  Theorem BOOKMASTERED:( (some Book1) ( mastered john))-> (some INFO)( mastered john).  
+Theorem BOOKMASTERED:( (some Book1) ( mastered john))-> (some INFO)( mastered john).  
     cbv.  intro. firstorder. Qed. (**John mastered  a book->John mastered an informational object**)
 Parameter John: man.
 Theorem MANEQUALHUMAN: (MAN.(B2) John John)-> (HUMAN.(B2) John John).  
