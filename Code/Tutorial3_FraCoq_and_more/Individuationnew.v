@@ -41,8 +41,7 @@ Check (three HUMAN) walk.
 (** Defining the IC for man and then MAN**)
 Definition IC_Man:=  mkEquiv man AIC_Man EQ.
 Definition MAN:= mkCN man IC_Man.
-(** Coercion between the first projections of MAN and HUMAN**)
-Axiom mh1: MAN.(B)->HUMAN.(B). 
+ 
 
 (**A proof that if three men walk, three humans walk**)
 Theorem MANWALK: (three MAN) walk-> (three HUMAN) walk. cbv. intros. destruct H.
@@ -95,9 +94,6 @@ Variable BOOK1BOOK2: forall x:book, forall y:book, IC_Book1  x y-> IC_Book2 x y.
  Definition Three_v:= fun (A:CN)(D:CN)=>fun c: A.(B)->D.(B)=>fun P: D.(B)->Prop=>exists x y z:A.(B), not((D.(B2))(c(x))(c(y)))/\not((D.(B2))(c(y))(c(z))) /\not((D.(B2))(c(x))(c(z)))/\P (c(x))/\ P(c(y))/\P(c(z)).
 
  
- Theorem Threemanhuman:   Three_v MAN HUMAN mh1 walk -> exists x y z:MAN.(B), walk(mh1 x)/\walk(mh1 y)/\walk(mh1 z)/\not((HUMAN.(B2))(mh1(x))(mh1(y)))/\not((HUMAN.(B2))(mh1(y))(mh1(z)))/\not((HUMAN.(B2))(mh1(x))(mh1(z))).
-  
-   cbv. firstorder.  Qed. (**three men walk->three human beings walk**)
 
  
  Definition Three_dot2:=fun c: Book1.(B)->PHYINFO.(B)=>fun P:PHYINFO.(B)->Prop=>exists x y z: Book1.(B), not((PHY.(B2))(c(x))(c(y)))/\not((PHY.(B2))(c(y))(c(z))) /\not((PHY.(B2))(c(x))(c(z)))/\not((INFO.(B2))(c(x))(c(y)))/\not((INFO.(B2))(c(y))(c(z))) /\not((INFO.(B2))(c(x))(c(z)))/\P (c(x))/\ P(c(y))/\P(c(z)). (**arbitrary A, WHEN SUBTYPING WORKS C SHOULD BE REDUNDANT, CHECK IT**)
