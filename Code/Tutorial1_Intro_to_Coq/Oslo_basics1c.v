@@ -143,4 +143,6 @@ end.
 
 
 Theorem next_august_then_july: forall m:month, next_month m = August -> m = July. intros m. case m. simpl. intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. reflexivity.   intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H. Qed.
-                                                                                                                                                                                                                                                                                                                                                                                                                          
+
+
+Lemma incorrect_equality_implies_anything: forall a, false = true -> a. intros. discriminate. Qed. 
