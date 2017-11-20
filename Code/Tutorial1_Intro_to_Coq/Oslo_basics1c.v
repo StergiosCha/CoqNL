@@ -125,5 +125,22 @@ Check Stream. Print Stream.
 Check (LCons 1 (LCons 2 (LCons 3 LNil))).
 Eval compute  in (LCons 1 (LCons 2 (LCons 3 LNil))).
 (**Eval compute  in (Cons 1 (Cons 2 (Cons 3))).**) (**there is no Nil to provide the Stream nat argument**)
+Definition next_month (m:month) :=
+match m with
+| January => February
+| February => March 
+| March => April
+| April => May
+| May => June 
+| June => July
+| July => August
+| August => September
+| September => October
+| October => November
+| November => December
+| December => January
+end.
 
-                 
+
+Theorem next_august_then_july: forall m:month, next_month m = August -> m = July. intros m. case m. simpl. intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. reflexivity.   intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H.  intros. discriminate H. Qed.
+                                                                                                                                                                                                                                                                                                                                                                                                                          
