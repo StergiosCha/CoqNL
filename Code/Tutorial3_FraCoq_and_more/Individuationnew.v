@@ -1,4 +1,3 @@
-
 Require Import Setoid.
 (**DomCN is the old CN, the universe of common nouns**)
 Definition DomCN:=Set.
@@ -6,7 +5,7 @@ Definition DomCN:=Set.
 (**Equiv is an equivalence relation on elements of DomCN**)
 Record Equiv (A:DomCN) : Type := mkEquiv { eq1:> A->A->Prop; _eq2: reflexive A(eq1)/\ symmetric A eq1/\ transitive A eq1}.
 Check Equiv.
-(**CN is a setoid, here expressed a record, second projection is the equiv relation on the type**)
+(**CN is a setoid, here expressed as a record, second projection is the equiv relation on the type**)
 Record CN := mkCN{ B:> DomCN; B2:Equiv B}.
 
 (**small capitals for the types in DomCN**)
