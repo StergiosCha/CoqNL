@@ -1,0 +1,20 @@
+Variable P:Prop.
+Require Import Classical. 
+Theorem goclassical:  forall P:Prop, not (not P)-> P.
+tauto. 
+
+
+  
+Theorem noIllstayintuitionistic: P -> not (not P). (** :) **)
+  tauto.
+
+
+Definition CN:=Set. 
+Parameter Man: CN.
+Definition some:= fun A:CN=> fun P: A->Prop=> exists x: A, P(x).
+Definition all:= fun A:CN=> fun P: A->Prop=> forall  x: A, P(x).
+
+Print some.
+Parameter John: Man.
+Parameter walk: Man->Prop. 
+Theorem MAN: walk John-> (some Man) walk.              intro. unfold some. exists John. assumption. Qed. 
