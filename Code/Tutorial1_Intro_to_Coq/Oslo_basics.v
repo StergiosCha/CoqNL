@@ -22,13 +22,15 @@ Check plus 3 4.
 (** Assumptions**)
 Parameter H:Set.
 Section H1.
-  Variable H1:Set.
+Variable H1:Set.
 End H1.
 Hypothesis H2: Set.
 
 (** Definition**)
 Definition three:nat:= S (S(S((0)))).
-Theorem three3: 3 = three. cbv. reflexivity. Qed.
+Check three. 
+Theorem three3: 3 = three. cbv.  reflexivity. Qed.
+
 Eval compute in  S (S(S((0)))).
 Parameter Montague_Grammar: Set. 
 Definition MG:= Montague_Grammar.
@@ -37,7 +39,8 @@ Definition MG:= Montague_Grammar.
 Parameter nat_1: nat->Prop.
 Definition square:= fun n: nat=> n*n. (** fun is lambda. Note that Coq can infer the type nat->nat here.**)
 Definition square1: nat->nat:= fun n: nat=> n*n.
-
+Theorem SQUARE: square = square1.
+cbv. reflexivity. Qed.
 (** Define a function that takes two nat arguments and returns their sum multiplied by the first nat**)
 Definition sum_times:= fun n m: nat=> (n+m)*n.
 Eval compute in sum_times 2 3.
@@ -55,8 +58,8 @@ Print nat1_ind. Print nat1_rect. Print nat1_rec. (**Peano's induction**)
 
 (** Propositional logic proofs**)
 Variables A B P Q R: Prop. 
-Theorem trans: (P->Q)->(Q->R)->(P->R).
-intro. intro. 
+Theorem trans: (P->Q)->(Q->R)->(P->R). 
+                                         intro. intro. 
 intro. 
 apply H1. apply H0. assumption. Qed.
 Definition lem:= A \/ ~ A.
@@ -71,7 +74,7 @@ intro.   absurd A. assumption. assumption. Qed.
 
 (**Tactics**)
 Theorem CONJ: A/\B->A.
-intro. elim H0. (** applies the elimination rule for conjunction**) intros. assumption. Qed
+intro.  elim H0. (** applies the elimination rule for conjunction**) intros. assumption. Qed
 . 
 Theorem CONJ2: B/\(A/\P)->A/\B.
 intro. 
@@ -104,7 +107,7 @@ Theorem PQQ: P->Q->P.
   intros.   
   try elim H0.   try apply H0. Qed.
 Variable T: Prop.
-Theorem PQPR: (P->Q)->(P->R)->(P->Q->R->T)->P->T. intros H H0 H1 H2.  idtac.  apply H1; [idtac|idtac |idtac]; idtac. assumption.  apply H;[idtac]; assumption. apply H0. assumption. Qed.
+Theorem PQPR: (P->Q)->(P->R)->(P->Q->R->T)->P->T.  intros H H0 H1 H2.  idtac.  apply H1; [idtac|idtac |idtac]; idtac. assumption.  apply H;[idtac]; assumption. apply H0. assumption. Qed. 
 
 Theorem PQPR2: (P->Q)->(P->R)->(P->Q->R->T)->P->T.
   intros H H0 H1 H2. apply H1;[idtac|apply H|apply H0]; assumption. Qed.
@@ -123,11 +126,12 @@ End assert.
 
 Section generalize.
   Hypotheses (x:nat)(y:nat).
-Lemma GENERALIZE:   0 <= x + y + y.
-generalize (x + y + y). intro. omega. Qed.
+Lemma GENERALIZE:   0 <= x + y + y.  omega. Qed.
 End generalize.
+Lemma GENERALIZE2: forall x y  :nat, 0 <=  x + y + y. 
+  intro. intro. omega. Qed. 
 
-Section cut.
+  Section cut.
   Hypotheses (H : P->Q)
 (H0: Q->R)
 (H1 : (P->R)->T->Q)
