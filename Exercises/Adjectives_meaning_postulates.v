@@ -1,7 +1,7 @@
 Definition e:=Set.
 Definition t:=Prop.
 Parameter black: (e->t). 
-Definition Black:= fun Q: (e->t)=> fun x:e=> black x /\ Q x.
+Definition Black:= fun Q: (e->t)=> fun x:e=> black x /\ Q x. 
 Parameter man: e->t.
 Parameter John:e.
 Theorem blackman: Black man John-> man John. cbv. intuition. Qed.

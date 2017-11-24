@@ -28,8 +28,6 @@ Definition dated:= fun P:e->Prop=>  date P.
 Check (a(MIN((and(ER Man)(ER Woman))))dated).
 Eval cbv in  (a(MIN((and(ER Man)(ER Woman))))dated).
 Check dated.
-Theorem DATED:  (a(MIN((and(ER Man)(ER Woman))))dated).
-cbv. 
 Definition PDIST:= fun (P' P:e->Prop)=>not (Empty_set P)/\ included P P'.
 Parameter beer: e->Prop. 
 Definition Beer:= fun x=>  beer x.

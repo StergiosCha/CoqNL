@@ -57,8 +57,7 @@ Parameter mary_PN : PN.
 Theorem POL : UseCl Pos (PredVP (UsePN john_PN) (UseV walk_V)) ->
                UseCl Neg (PredVP (UsePN john_PN)(UseV walk_V)) -> False.
 cbv.
-intros P N.
-exact (N P).
+intros P N. apply N. assumption. 
 Qed.
 
 

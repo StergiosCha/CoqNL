@@ -30,6 +30,7 @@ Parameter Won2:((Object->Prop)->Prop)->Human->Prop.
 (**adjectival modification as sigmas, here dependent records**)
 Record Irishdelegate : CN := mkIrishdelegate { c :> Delegate; C : Irish c }.
 Record Scandinaviandelegate : CN := mkScandinaviandelegate { e :> Delegate; E : scandinavian e }.
+Check mkIrishdelegate.
 
 (**Adverb**)
 Set Implicit Arguments. 
@@ -39,7 +40,7 @@ Unset Implicit Arguments.
 
 (** A yes case: some IDs finish the survey on time-> some Ds finish the survey on time**)
 Theorem IRISH: (some Irishdelegate(On_time(finish(the Survey)))->(some Delegate)(On_time (finish(the Survey)))).
-cbv. intro. elim H. intros. exists x. assumption. Qed.
+cbv. intro. elim H. intros. exists x. apply H0.  Qed.
   (** Another YES example, note that FraCaS gives an extra premise: Every Swede is Scandinavian. This is not needed, the subtyping takes care of it**)
   Theorem SWEDE1: (a Swede)(Won2 (a Nobel_Prize))->(a  Scandinavian (Won2(a Nobel_Prize))).
     cbv. intros. elim H. intros. exists x. assumption. Qed.
@@ -66,7 +67,7 @@ Parameter ADV: forall (A : CN) (v : A -> Prop),sigT  (fun p : A -> Prop =>
 Definition on_time:= fun A:CN=> fun v:A->Prop=> projT1 (ADV(v)).
 
 Theorem IRISH2: (some Delegate)(on_time(finish(the Survey)))->(some Delegate)((finish(the Survey))).
-  cbv. destruct ADV. intro. induction H. exists x0. apply f. assumption. Qed.
+  cbv. destruct ADV. intro. elim  H. intros. exists x0. apply f.  assumption. Qed.
 
                   (**Sentence adverb veridicality**)
 Parameter ADVS: forall ( v : Prop), sigT  (fun p : Prop => p  ->  v).

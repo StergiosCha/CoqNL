@@ -1,11 +1,12 @@
 Definition e:=Set.
 Definition t:= Prop.
 Definition Ident:= fun x:e=>  fun y:e=>  x=y.
+Check Ident. 
 Definition Lift:= fun x: e=> fun P:e->t=>  P x.
 Definition THE:= fun P Q:e->t=>  exists x: e, (forall y,  P y <-> x=y /\ Q x).
 (**Lowering**)
 Definition BE:= fun P:(e->t)->t=> fun x:e=> P (fun y:e=>(y=x)).
-
+Check BE. 
 
 (**Polymorphic BE**)
 Inductive Onebe : Set := be.
@@ -28,7 +29,7 @@ Definition every:= fun P Q:e->t=> forall x, P x->Q x.
 Eval compute in BE (every man) j.
 
 (**Checking Polymorphism**)
-Eval compute in (be:BSem1) (m) j.
+Eval compute in (be:BSem1) (m) j. 
 Eval compute in (be:BSem2) (man) j.
 
 
