@@ -1,3 +1,4 @@
+(**Some of the theorems are taken from Bertot and Casteran 2004**)
 Require Import Omega.
 (**Type Checking of the Universes**)
 Check Prop.
@@ -104,13 +105,12 @@ Qed.
 
 (**Idtac and try**)
 Theorem PQQ: P->Q->P.
-  intros.   
-  try elim H0.   try apply H0. Qed.
+intros.   try elim H0.   try apply H0. Qed.
 Variable T: Prop.
 Theorem PQPR: (P->Q)->(P->R)->(P->Q->R->T)->P->T.  intros H H0 H1 H2.  idtac.  apply H1; [idtac|idtac |idtac]; idtac. assumption.  apply H;[idtac]; assumption. apply H0. assumption. Qed. 
 
 Theorem PQPR2: (P->Q)->(P->R)->(P->Q->R->T)->P->T.
-  intros H H0 H1 H2. apply H1;[idtac|apply H|apply H0]; assumption. Qed.
+intros H H0 H1 H2. apply H1;[idtac|apply H|apply H0]; assumption. Qed.
 
 Theorem PQPR3: (P->Q)->(P)->P. intros. assert Q. intuition. assumption. Qed.
 (**Assert**)
@@ -121,22 +121,22 @@ Hypotheses (H : P -> Q)
 (H1 : (P -> R) -> T -> Q)
 (H2 : (P -> R) -> T).
 Lemma L8 : Q.
-  assert (PR : P -> R). intro p; apply H0; apply H; assumption. apply H1; [ assumption | apply H2;assumption]. Qed. (**assert saves some time here, otherwise we would have to prove P->R twice**)
+assert (PR : P -> R). intro p; apply H0; apply H; assumption. apply H1; [ assumption | apply H2;assumption]. Qed. (**assert saves some time here, otherwise we would have to prove P->R twice**)
 End assert.
 
 Section generalize.
-  Hypotheses (x:nat)(y:nat).
+Hypotheses (x:nat)(y:nat).
 Lemma GENERALIZE:   0 <= x + y + y.  omega. Qed.
 End generalize.
 Lemma GENERALIZE2: forall x y  :nat, 0 <=  x + y + y. 
-  intro. intro. omega. Qed. 
+intro. intro. omega. Qed. 
 
-  Section cut.
-  Hypotheses (H : P->Q)
+Section cut.
+Hypotheses (H : P->Q)
 (H0: Q->R)
 (H1 : (P->R)->T->Q)
 (H2 : (P->R)->T).
 
-  Theorem cut: Q.
-    cut (P->R). intros. apply H1. assumption. apply H2. assumption. intro. apply H0. apply H. assumption. Qed.
-  End cut.
+Theorem cut: Q.
+cut (P->R). intros. apply H1. assumption. apply H2. assumption. intro. apply H0. apply H. assumption. Qed.
+End cut.
