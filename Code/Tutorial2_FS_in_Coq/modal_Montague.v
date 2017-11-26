@@ -1,3 +1,5 @@
+
+(**Modal definitions based on Benzmuller and Paleo 2015**)
 Parameter W: Type. (* Type for worlds *)
 Parameter e: Type. (* Typefor individuals *)
 Definition MProp := W  -> Prop. (* Type of modal propositions *)
