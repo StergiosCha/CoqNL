@@ -16,4 +16,3 @@ Theorem  PQR : (P /\ Q) \/ R -> P \/ R.
 Theorem distrandor : (P /\ Q)\/ (P /\ R) ->P /\ (Q \/ R).
 Theorem  LEM :
 (P -> (P /\ Q) -> R) -> P /\ (Q /\ P) -> R.
-Theorem NAT: forall P : nat -> Prop, (forall x, P x) -> exists y:nat, P y /\ y = 0 .
